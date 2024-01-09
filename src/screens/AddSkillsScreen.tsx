@@ -1,36 +1,45 @@
-import {Pressable, StyleSheet, TextInput, Text, View} from 'react-native';
+/* eslint-disable eqeqeq */
+import {StyleSheet, View, FlatList} from 'react-native';
 import React, {useState} from 'react';
+import SkillRow from '../components/SkillRow';
+import SkillInput from '../components/SkillInput';
+interface SkillType {
+  text: string;
+  id: string;
+}
 
 const AddSkillsScreen = () => {
-  const [enteredSkill, setEnteredSkill] = useState('');
-  const [addedSkills, setAddedSkills] = useState<['']>();
+  const [addedSkills, setAddedSkills] = useState<SkillType[]>([]);
 
-  const onSkillInputhandler = (skill: React.SetStateAction<string>) => {
-    setEnteredSkill(skill);
+  const onAddSkillHandler = (enteredSkill: string) => {
+    setAddedSkills(currentAddedSkills => [
+      ...currentAddedSkills,
+      {text: enteredSkill, id: Math.random().toString()},
+    ]);
   };
 
-  const onAddSkillHandler = () => {
-    console.log(enteredSkill);
-    setAddedSkills({
-      ...addedSkills,
-      enteredSkill,
+  const onDeleteHandler = (id: string) => {
+    setAddedSkills(currentAddedSkill => {
+      return currentAddedSkill.filter(skill => skill.id != id);
     });
-    setEnteredSkill('');
   };
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInputStyle}
-          value={enteredSkill}
-          onChangeText={onSkillInputhandler}
+      <SkillInput onAddSkillHandler={onAddSkillHandler} />
+      <View style={styles.listContainer}>
+        <FlatList
+          data={addedSkills}
+          renderItem={itemData => {
+            return (
+              <SkillRow SkillType={itemData.item} onDelete={onDeleteHandler} />
+            );
+          }}
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
         />
-        <Pressable onPress={onAddSkillHandler}>
-          <Text>Add Skills</Text>
-        </Pressable>
       </View>
-      <View style={styles.listContainer} />
     </View>
   );
 };
@@ -42,22 +51,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'green',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   listContainer: {
     flex: 2,
-    backgroundColor: 'red',
   },
-  textInputStyle: {
-    borderColor: '#cccccc',
-    borderWidth: 1,
-    width: '70%',
-    height: 42,
-    marginLeft: 10,
+  RowCellStyle: {
+    height: 40,
+    margin: 5,
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: '#cccccc',
   },
 });

@@ -4,10 +4,13 @@ import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAppNavigation} from '../navigator/useAppNavigation';
 import PrimaryButton from '../components/PrimaryButton';
 import SecondaryButton from '../components/SecondaryButton';
+import LogoImage from '../components/LogoImage';
 
 const LoginScreen: FC = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+  const [isEmpty, setIsEmpty] = useState(false);
+
   const inputRef = useRef(null);
   const navigation = useAppNavigation();
 
@@ -23,8 +26,9 @@ const LoginScreen: FC = () => {
 
   const validateLogin = () => {
     if (emailValue.length === 0 || passwordValue.length === 0) {
-      console.log('Please enter valid name and password');
+      setIsEmpty(true);
     } else {
+      setIsEmpty(false);
       loginHandler();
     }
   };
@@ -40,12 +44,11 @@ const LoginScreen: FC = () => {
   return (
     <View style={styles.appContainer}>
       <View style={styles.logoContainer}>
-        <Image
-          style={styles.logoStyle}
-          resizeMode="contain"
-          source={require('../assets/images/logo.png')}
+        <LogoImage
+          imageSource={require('../assets/images/logo.png')}
+          isFooter={true}
+          footerTitle="Welcome back"
         />
-        <Text>Welcome back</Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -63,6 +66,13 @@ const LoginScreen: FC = () => {
           value={passwordValue}
           onChangeText={val => setPasswordValue(val)}
         />
+        {isEmpty ? (
+          <Text style={styles.error}>
+            Please enter a valid Email and Password
+          </Text>
+        ) : (
+          <></>
+        )}
         <SecondaryButton
           title="Forget your password?"
           onPressHandler={forgetActionHandler}
@@ -114,9 +124,10 @@ const styles = StyleSheet.create({
     padding: 5,
     marginBottom: 16,
   },
-  logoStyle: {
-    height: 150,
-    width: 150,
+  error: {
+    alignSelf: 'flex-start',
+    color: 'red',
+    marginLeft: 15,
     marginBottom: 10,
   },
 });

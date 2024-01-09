@@ -1,6 +1,5 @@
 import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import React, {FC} from 'react';
-
 interface Props {
   title: string;
   onPressHandler: () => {};
@@ -9,7 +8,7 @@ interface Props {
 const SecondaryButton: FC<Props> = ({title, onPressHandler}) => {
   return (
     <TouchableHighlight
-      style={{alignSelf: 'center'}}
+      style={styles.buttonStyle}
       activeOpacity={1.0}
       underlayColor="white"
       onPress={onPressHandler}>
@@ -20,4 +19,8 @@ const SecondaryButton: FC<Props> = ({title, onPressHandler}) => {
 
 export default SecondaryButton;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonStyle: {
+    alignSelf: 'flex-end',
+  },
+});

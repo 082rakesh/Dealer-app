@@ -1,9 +1,9 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React, {FC} from 'react';
 
 interface Props {
   title: string;
-  onPressHandler: () => {};
+  onPressHandler: () => void;
 }
 
 const PrimaryButton: FC<Props> = ({title, onPressHandler}) => {

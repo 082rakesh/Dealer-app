@@ -10,7 +10,11 @@ const SignupInput: FC<Props> = ({header, placeHolder}) => {
   return (
     <View>
       <Text style={styles.headerStyle}>{header}</Text>
-      <TextInput style={styles.textInputStyle} placeholder={placeHolder} />
+      <TextInput
+        style={styles.textInputStyle}
+        placeholder={placeHolder}
+        autoCorrect={false}
+      />
     </View>
   );
 };

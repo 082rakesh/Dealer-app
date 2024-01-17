@@ -7,17 +7,20 @@ interface Props {
 
 const SecondaryButton: FC<Props> = ({title, onPressHandler}) => {
   return (
-    <TouchableHighlight
-      style={styles.buttonStyle}
-      activeOpacity={1.0}
-      underlayColor="white"
-      onPress={onPressHandler}>
-      <Text>{title}</Text>
-    </TouchableHighlight>
+    <>
+      {console.log('secondary button redered')}
+      <TouchableHighlight
+        style={styles.buttonStyle}
+        activeOpacity={1.0}
+        underlayColor="white"
+        onPress={onPressHandler}>
+        <Text>{title}</Text>
+      </TouchableHighlight>
+    </>
   );
 };
 
-export default SecondaryButton;
+export default React.memo(SecondaryButton);
 
 const styles = StyleSheet.create({
   buttonStyle: {

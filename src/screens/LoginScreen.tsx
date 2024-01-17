@@ -1,28 +1,28 @@
-import React, {FC, useRef} from 'react';
+import React, {FC, useCallback, useRef} from 'react';
 import {useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAppNavigation} from '../navigator/useAppNavigation';
 import PrimaryButton from '../components/PrimaryButton';
 import SecondaryButton from '../components/SecondaryButton';
 import LogoImage from '../components/LogoImage';
+import useToggle from '../utils/hooks/useToggles';
 
 const LoginScreen: FC = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isEmpty, setIsEmpty] = useState(false);
+  const [value, toggleValue] = useToggle(false);
 
   const inputRef = useRef(null);
   const navigation = useAppNavigation();
 
-  const forgetActionHandler = () => {
+  const forgetActionHandler = useCallback(() => {
     console.log('forget password pressed');
-  };
+  }, []);
 
-  const signUpAction = () => {
-    navigation.navigate('Login', {
-      screen: 'SignUpScreen',
-    });
-  };
+  const signUpAction = useCallback(() => {
+    navigation.navigate('Login', {screen: 'SignUpScreen'});
+  }, [navigation]);
 
   const validateLogin = () => {
     if (emailValue.length === 0 || passwordValue.length === 0) {
@@ -58,6 +58,11 @@ const LoginScreen: FC = () => {
           ref={inputRef}
           value={emailValue}
           onChangeText={text => setEmailValue(text)}
+          onSubmitEditing={
+            emailValue.length <= 0
+              ? console.log('Please enter valid email')
+              : console.log('Entered valid email')
+          }
         />
         <TextInput
           style={styles.textInput}
@@ -74,7 +79,7 @@ const LoginScreen: FC = () => {
           <></>
         )}
         <SecondaryButton
-          title="Forget your password?"
+          title={value ? 'Forget your password?' : 'Forget'}
           onPressHandler={forgetActionHandler}
         />
       </View>

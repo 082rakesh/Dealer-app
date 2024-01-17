@@ -4,6 +4,7 @@ import SignUpScreen from '../screens/SignUpScreen.tsx';
 import AddSkillsScreen from '../screens/AddSkillsScreen.tsx';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import DetailsScreen from '../screens/DetailsScreen.tsx';
 
 export type screenOptions = {
   gestureEnabled: false;
@@ -18,6 +19,7 @@ export type OnboardingStackParamList = {
   LoginScreen: undefined;
   SignUpScreen: undefined;
   AddSkillsScreen: undefined;
+  DetailsScreen: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +31,7 @@ const LoginNavigator = () => {
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
       <LoginStack.Screen name="SignUpScreen" component={SignUpScreen} />
       <LoginStack.Screen name="AddSkillsScreen" component={AddSkillsScreen} />
+      <LoginStack.Screen name="DetailsScreen" component={DetailsScreen} />
     </LoginStack.Navigator>
   );
 };

@@ -3,6 +3,8 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import React, {useState} from 'react';
 import SkillRow from '../components/SkillRow';
 import SkillInput from '../components/SkillInput';
+import PrimaryButton from '../components/PrimaryButton';
+import {useAppNavigation} from '../navigator/useAppNavigation';
 interface SkillType {
   text: string;
   id: string;
@@ -10,6 +12,8 @@ interface SkillType {
 
 const AddSkillsScreen = () => {
   const [addedSkills, setAddedSkills] = useState<SkillType[]>([]);
+
+  const navigation = useAppNavigation();
 
   const onAddSkillHandler = (enteredSkill: string) => {
     setAddedSkills(currentAddedSkills => [
@@ -24,9 +28,16 @@ const AddSkillsScreen = () => {
     });
   };
 
+  const moveToDetails = () => {
+    navigation.navigate('Login', {
+      screen: 'DetailsScreen',
+    });
+  };
+
   return (
     <View style={styles.mainContainer}>
       <SkillInput onAddSkillHandler={onAddSkillHandler} />
+      <PrimaryButton title={'Move to Details'} onPressHandler={moveToDetails} />
       <View style={styles.listContainer}>
         <FlatList
           data={addedSkills}

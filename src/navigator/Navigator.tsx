@@ -6,6 +6,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsScreen from '../screens/DetailsScreen.tsx';
 import CreateBillingAddress from '../screens/CreateBillingAddress.tsx';
+import OldLoginScreen from '../screens/OldLoginScreen.js';
 
 export type screenOptions = {
   gestureEnabled: false;

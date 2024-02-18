@@ -24,7 +24,7 @@ const SkillInput: FC<Props> = ({onAddSkillHandler}) => {
         onChangeText={onSkillInputhandler}
       />
       <Pressable onPress={onSkillHandler}>
-        <Text>Add Skills</Text>
+        <Text>Add Row</Text>
       </Pressable>
     </View>
   );

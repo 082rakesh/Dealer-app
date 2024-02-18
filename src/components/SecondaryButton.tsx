@@ -5,7 +5,11 @@ interface Props {
   onPressHandler: () => {};
 }
 
-const SecondaryButton: FC<Props> = ({title, onPressHandler}) => {
+const SecondaryButton: FC<Props> = ({title}) => {
+  const onPresshandler = () => {
+    console.log('user pressed');
+  };
+
   return (
     <>
       {console.log('secondary button redered')}
@@ -13,7 +17,7 @@ const SecondaryButton: FC<Props> = ({title, onPressHandler}) => {
         style={styles.buttonStyle}
         activeOpacity={1.0}
         underlayColor="white"
-        onPress={onPressHandler}>
+        onPress={onPresshandler}>
         <Text>{title}</Text>
       </TouchableHighlight>
     </>

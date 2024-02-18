@@ -36,8 +36,14 @@ const AddSkillsScreen = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <SkillInput onAddSkillHandler={onAddSkillHandler} />
-      <PrimaryButton title={'Move to Details'} onPressHandler={moveToDetails} />
+      <View style={styles.topContainer}>
+        <SkillInput onAddSkillHandler={onAddSkillHandler} />
+        <PrimaryButton
+          title={'Move to Details'}
+          onPressHandler={moveToDetails}
+        />
+      </View>
+
       <View style={styles.listContainer}>
         <FlatList
           data={addedSkills}
@@ -46,7 +52,7 @@ const AddSkillsScreen = () => {
               <SkillRow SkillType={itemData.item} onDelete={onDeleteHandler} />
             );
           }}
-          keyExtractor={(item, index) => {
+          keyExtractor={item => {
             return item.id;
           }}
         />
@@ -61,6 +67,11 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: 'column',
+  },
+  topContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   listContainer: {
     flex: 2,

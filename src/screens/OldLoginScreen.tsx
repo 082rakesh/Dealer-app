@@ -1,17 +1,19 @@
 import React, {FC, useCallback, useRef} from 'react';
 import {useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useAppNavigation} from '../navigator/useAppNavigation';
-import PrimaryButton from '../components/PrimaryButton';
-import SecondaryButton from '../components/SecondaryButton';
-import LogoImage from '../components/LogoImage';
-import useToggle from '../utils/hooks/useToggles';
 
-const LoginScreen: FC = () => {
+const OldLoginScreen: FC = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [value] = useToggle(false);
+  const [isEmpty] = useState(false);
 
   const inputRef = useRef(null);
   const navigation = useAppNavigation();
@@ -24,37 +26,22 @@ const LoginScreen: FC = () => {
     navigation.navigate('Login', {screen: 'SignUpScreen'});
   }, [navigation]);
 
-  const validateLogin = () => {
-    if (emailValue.length === 0 || passwordValue.length === 0) {
-      setIsEmpty(true);
-    } else {
-      setIsEmpty(false);
-      loginHandler();
-    }
-  };
-
-  const loginHandler = () => {
-    navigation.navigate('Login', {
-      screen: 'AddSkillsScreen',
-    });
-    setEmailValue('');
-    setPasswordValue('');
-  };
-
   return (
     <View style={styles.appContainer}>
       <View style={styles.logoContainer}>
-        <LogoImage
-          imageSource={require('../assets/images/logo.png')}
-          isFooter={true}
-          footerTitle="Welcome back"
+        <Image
+          style={styles.logoStyle}
+          resizeMode="contain"
+          source={require('../assets/images/logo.png')}
         />
+
+        <Text>Welcome back</Text>
       </View>
 
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
-          placeholder="Enter email"
+          placeholder="Enter old email"
           ref={inputRef}
           value={emailValue}
           onChangeText={text => setEmailValue(text)}
@@ -78,17 +65,16 @@ const LoginScreen: FC = () => {
         ) : (
           <></>
         )}
-        <SecondaryButton
-          title={value ? 'Forget your password?' : 'Forget Password?'}
-          onPressHandler={forgetActionHandler}
-        />
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={forgetActionHandler}>
+          <Text>Forget your password?</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.bottomContainer}>
-        <PrimaryButton title="Login" onPressHandler={validateLogin} />
-        <SecondaryButton
-          title="Don't have an account? Sign up"
-          onPressHandler={signUpAction}
-        />
+        <TouchableOpacity style={styles.buttonStyle} onPress={signUpAction}>
+          <Text>Don't have an account? Sign up</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -135,5 +121,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginBottom: 10,
   },
+  logoStyle: {
+    height: 150,
+    width: 150,
+    marginBottom: 10,
+  },
+  buttonStyle: {
+    alignSelf: 'flex-end',
+  },
 });
-export default LoginScreen;
+export default OldLoginScreen;

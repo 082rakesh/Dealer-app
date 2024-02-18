@@ -1,6 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import SignupInput from '../components/TextInputWithHeader';
 import {FC} from 'react';
+import React from 'react';
 // import {useAppNavigation} from '../utils/useAppNavigation';
 
 const SignUpScreen: FC = () => {

@@ -5,6 +5,7 @@ import AddSkillsScreen from '../screens/AddSkillsScreen.tsx';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsScreen from '../screens/DetailsScreen.tsx';
+import CreateBillingAddress from '../screens/CreateBillingAddress.tsx';
 
 export type screenOptions = {
   gestureEnabled: false;
@@ -16,6 +17,7 @@ export type RootStackParamList = {
 };
 
 export type OnboardingStackParamList = {
+  OldLoginScreen: undefined;
   LoginScreen: undefined;
   SignUpScreen: undefined;
   AddSkillsScreen: undefined;
@@ -32,6 +34,10 @@ const LoginNavigator = () => {
       <LoginStack.Screen name="SignUpScreen" component={SignUpScreen} />
       <LoginStack.Screen name="AddSkillsScreen" component={AddSkillsScreen} />
       <LoginStack.Screen name="DetailsScreen" component={DetailsScreen} />
+      <LoginStack.Screen
+        name="CreateBillingAddress"
+        component={CreateBillingAddress}
+      />
     </LoginStack.Navigator>
   );
 };

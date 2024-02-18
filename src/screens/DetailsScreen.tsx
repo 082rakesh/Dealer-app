@@ -1,33 +1,47 @@
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
 import useCounter from '../utils/hooks/useCounter';
 import {useQuery} from 'react-query';
 import {getUserList} from '../networking/Service';
 import {Users} from '../networking/Data/User';
 import Loader from '../components/Loader';
+import DetailsRow from '../components/DetailsRow';
+import {StaticContent} from '../utils/constants/stringConstant';
+import {useAppNavigation} from '../navigator/useAppNavigation';
+import SampleScreen from './SampleScreen';
+import withHeader from '../utils/HOC/withHeader';
+import React from 'react';
 
 const DetailsScreen = () => {
   const {count, increment, decrement} = useCounter();
 
-  const {isLoading, isError, data, error} = useQuery<Users>(
-    'users',
-    getUserList,
-  );
+  const {isLoading, data} = useQuery<Users>('users', getUserList);
 
-  console.log(
-    'query data ' + data?.map(user => console.log(user.name.firstname)),
-  );
+  // console.log(
+  //   'query data ' + data?.map(user => console.log(user.name.firstname)),
+  // );
+
+  const navigation = useAppNavigation();
+
+  const didSelectRow = () => {
+    navigation.navigate('Login', {
+      screen: 'CreateBillingAddress',
+    });
+    console.log('navigate to CreateBillingAddress');
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Text>Number is - {count}</Text>
+        <Text>
+          {StaticContent.NUMBER_HEADER} {count}
+        </Text>
         <Pressable onPress={increment}>
-          <Text>Increment</Text>
+          <Text>{StaticContent.INCREMENT}</Text>
         </Pressable>
         <Pressable onPress={decrement}>
-          <Text>Decement</Text>
+          <Text>{StaticContent.DECREMENT}</Text>
         </Pressable>
+        <SampleScreen />
       </View>
       <View style={styles.bottomContainer}>
         {isLoading ? (
@@ -36,7 +50,12 @@ const DetailsScreen = () => {
           <FlatList
             data={data}
             renderItem={itemData => {
-              return <Text>{itemData.item.name.firstname}</Text>;
+              return (
+                <DetailsRow
+                  userData={itemData.item.name.firstname}
+                  onPresshandler={didSelectRow}
+                />
+              );
             }}
           />
         )}
@@ -62,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsScreen;
+export default withHeader(DetailsScreen);

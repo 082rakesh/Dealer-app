@@ -6,5 +6,3 @@ export const getUserList = async () => {
   const response = axios.get(`${BASE_URL}/users`);
   return (await response).data;
 };
-
-

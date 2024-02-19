@@ -10,6 +10,7 @@ import {useAppNavigation} from '../navigator/useAppNavigation';
 import SampleScreen from './SampleScreen';
 import withHeader from '../utils/HOC/withHeader';
 import React from 'react';
+import { useState } from 'react';
 
 const DetailsScreen = () => {
   const {count, increment, decrement} = useCounter();

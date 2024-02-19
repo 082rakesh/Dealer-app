@@ -18,7 +18,6 @@ export type RootStackParamList = {
 };
 
 export type OnboardingStackParamList = {
-  OldLoginScreen: undefined;
   LoginScreen: undefined;
   SignUpScreen: undefined;
   AddSkillsScreen: undefined;

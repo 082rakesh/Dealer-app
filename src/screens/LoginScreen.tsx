@@ -41,6 +41,10 @@ const LoginScreen: FC = () => {
     setPasswordValue('');
   };
 
+  const handlerValue = () => {
+    console.log('print handlerValue');
+  };
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.logoContainer}>

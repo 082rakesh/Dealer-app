@@ -1,11 +1,12 @@
 import React, {FC, useCallback, useRef} from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAppNavigation} from '../navigator/useAppNavigation';
 import PrimaryButton from '../components/PrimaryButton';
 import SecondaryButton from '../components/SecondaryButton';
 import LogoImage from '../components/LogoImage';
 import useToggle from '../utils/hooks/useToggles';
+import {UserContext} from '../utils/context.js/UserContext';
 
 const LoginScreen: FC = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -13,8 +14,14 @@ const LoginScreen: FC = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [value] = useToggle(false);
 
+  const {setUserName} = useContext(UserContext);
+
   const inputRef = useRef(null);
   const navigation = useAppNavigation();
+
+  // const forgetActionHandler = () => {
+  //   console.log('forget password pressed');
+  // };
 
   const forgetActionHandler = useCallback(() => {
     console.log('forget password pressed');
@@ -29,6 +36,7 @@ const LoginScreen: FC = () => {
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
+      setUserName(emailValue);
       loginHandler();
     }
   };
@@ -41,9 +49,32 @@ const LoginScreen: FC = () => {
     setPasswordValue('');
   };
 
-  const handlerValue = () => {
-    console.log('print handlerValue');
-  };
+  /*
+  // TODO: This code is written to validate & test useMemo
+
+  function heavyComputation2(value: number) {
+    const complexvalue = useMemo(() => {
+      let sum = 0
+      for(let index = 0; index<value; index++) {
+        sum = sum + index
+      }
+      console.log('heavyComputation1 sum1 is ->' + sum)
+    }, [value])
+  }
+
+  function heavyComputation(value: number) {
+    let sum = 0
+
+    for(let index = 0; index<value; index++) {
+      sum = sum + index
+    }
+
+    console.log('heavyComputation sum is ->' + sum)
+  }
+
+  heavyComputation(100000)
+  heavyComputation2(1000000)
+  */
 
   return (
     <View style={styles.appContainer}>
@@ -140,4 +171,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
 export default LoginScreen;

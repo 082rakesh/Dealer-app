@@ -12,10 +12,13 @@ interface Props {
 }
 
 const SkillRow: FC<Props> = ({SkillType, onDelete}) => {
+  const deleteHandler = () => {
+    onDelete();
+  };
   return (
     <View style={styles.RowCellStyle}>
       <Text style={styles.titleStyle}>{SkillType.text}</Text>
-      <Pressable onPress={onDelete.bind(this, SkillType.id)}>
+      <Pressable onPress={deleteHandler}>
         <Image
           resizeMode="center"
           style={styles.DeleteStyle}

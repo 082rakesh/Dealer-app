@@ -2,7 +2,7 @@ import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import React, {FC} from 'react';
 interface Props {
   title: string;
-  onPressHandler: {handler(): void};
+  onPressHandler: () => void;
 }
 
 const SecondaryButton: FC<Props> = ({title, onPressHandler}) => {

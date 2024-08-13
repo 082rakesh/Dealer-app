@@ -21,6 +21,8 @@ const SkillInput: FC<Props> = ({onAddSkillHandler}) => {
       <TextInput
         style={styles.textInputStyle}
         value={enteredSkill}
+        autoCapitalize="none"
+        autoCorrect
         onChangeText={onSkillInputhandler}
       />
       <Pressable onPress={onSkillHandler}>

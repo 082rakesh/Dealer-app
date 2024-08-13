@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 
 interface Props {
   userData: string;
-  onPresshandler: () => {};
+  onPresshandler: () => void;
 }
 
 const DetailsRow: FC<Props> = ({userData, onPresshandler}) => {

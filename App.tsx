@@ -5,6 +5,9 @@
  * @format
  */
 
+if (__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+}
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigator/Navigator';

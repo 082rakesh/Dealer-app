@@ -1,10 +1,22 @@
 import {StyleSheet, View} from 'react-native';
 import SignupInput from '../components/TextInputWithHeader';
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 import React from 'react';
 // import {useAppNavigation} from '../utils/useAppNavigation';
 
 const SignUpScreen: FC = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const newInterval = setInterval(() => {
+      setCount(prevCount => prevCount + 1);
+    }, 1000);
+    return () => {
+      console.log('unmount');
+      clearInterval(newInterval);
+    };
+  }, [count]);
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.inputContainer}>

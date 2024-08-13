@@ -5,4 +5,4 @@ import {createContext} from 'react';
 //   setUserName: (() => {loggedInUser: string}),
 // };
 
-export const UserContext = createContext({loggedInUser: 'Default User'});
+export const UserContext = createContext({});

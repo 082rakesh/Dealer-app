@@ -16,7 +16,7 @@ const PrimaryButton: FC<Props> = ({title, onPressHandler}) => {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    backgroundColor: 'blue',
+    backgroundColor: '#a055f5',
     width: '85%',
     height: 45,
     marginBottom: 16,

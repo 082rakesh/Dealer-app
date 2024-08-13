@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useRef} from 'react';
+import React, {FC, useCallback} from 'react';
 import {useState, useContext} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAppNavigation} from '../navigator/useAppNavigation';
@@ -14,14 +14,13 @@ const LoginScreen: FC = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [value] = useToggle(false);
 
-  const {setUserName} = useContext(UserContext);
-
-  const inputRef = useRef(null);
+  const setUserName = useContext(UserContext);
   const navigation = useAppNavigation();
 
   // const forgetActionHandler = () => {
-  //   console.log('forget password pressed');
+  //   console.log('forgetActionHandler');
   // };
+  // console.log('render parent');
 
   const forgetActionHandler = useCallback(() => {
     console.log('forget password pressed');
@@ -42,8 +41,11 @@ const LoginScreen: FC = () => {
   };
 
   const loginHandler = () => {
+    // navigation.navigate('Login', {
+    //   screen: 'AddSkillsScreen',
+    // });
     navigation.navigate('Login', {
-      screen: 'AddSkillsScreen',
+      screen: 'HomeScreen',
     });
     setEmailValue('');
     setPasswordValue('');
@@ -90,20 +92,19 @@ const LoginScreen: FC = () => {
         <TextInput
           style={styles.textInput}
           placeholder="Enter email"
-          ref={inputRef}
+          autoCapitalize="none"
+          autoCorrect
+          autoComplete="off"
           value={emailValue}
           onChangeText={text => setEmailValue(text)}
-          onSubmitEditing={
-            emailValue.length <= 0
-              ? console.log('Please enter valid email')
-              : console.log('Entered valid email')
-          }
         />
         <TextInput
           style={styles.textInput}
           placeholder="Enter password"
-          ref={inputRef}
           value={passwordValue}
+          autoCapitalize="none"
+          autoCorrect
+          secureTextEntry
           onChangeText={val => setPasswordValue(val)}
         />
         {isEmpty ? (
@@ -135,6 +136,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 4,
     paddingBottom: 5,
+  },
+  containerBG: {
+    backgroundColor: 'gray',
   },
   logoContainer: {
     flex: 2,
@@ -171,5 +175,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+// const genericContainerStyle = StyleSheet.compose(
+//   styles.appContainer,
+//   styles.containerBG,
+// );
+
+// const flattenContainerStyle = StyleSheet.flatten(
+//   styles.appContainer,
+//   styles.containerBG,
+// );
 
 export default LoginScreen;
